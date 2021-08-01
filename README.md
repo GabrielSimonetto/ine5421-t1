@@ -1,5 +1,22 @@
 # ine5421-t1
 
+## TODO
+
+- [ ] Conversão de Expressão Regular para Autômato Finito Determinístico (livro do
+Aho).
+- [ ] União de Autômatos via Epsilon-transição
+- [ ] Determinização de Autômatos
+- [ ] Construção da TS (incluir palavras reservadas e outras informações pertinentes)
+
+- [ ] A interface de projeto deve permitir a inclusão de expressões regulares para todos
+os padrões de tokens;
+- [ ] Para cada ER deve ser gerado o AFD corresponde
+- [ ] Os AFD devem ser unidos
+- [ ] O AFND resultante deve ser determinizado gerando a tabela de análise léxica
+- [ ] A interface de execução deve permitir a entrada de um texto fonte
+- [ ] O texto fonte será analisado e deve gerar um arquivo de saída com todos os tokes
+encontrados.
+
 ## Installation
 
 ### Installing Poetry
