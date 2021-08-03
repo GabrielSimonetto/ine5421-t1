@@ -11,7 +11,8 @@ def format_tests_nicely(func):
         print()
         return result
     return wrapper_format_tests_nicely
- 
+
+
 @format_tests_nicely
 def test_1_ends_in_aa_succeds():
     input = 'abaa'
