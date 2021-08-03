@@ -1,7 +1,7 @@
 # ine5421-t1
 
 ## TODO
-
+.
 - [ ] Conversão de Expressão Regular para Autômato Finito Determinístico (livro do
 Aho).
 - [ ] União de Autômatos via Epsilon-transição
