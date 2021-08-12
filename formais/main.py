@@ -1,19 +1,56 @@
 from regular_expressions import RegularExpression
-from conversions import ER_to_AFD
+from conversions import ER_to_AFD, AFND_determinizer
+
+from finite_automata import NDFiniteAutomata
 
 from formais import EXAMPLES_PATH
 
-input = 'er: (a|b)*abb'
-print(f"String computada: {input}")
-ER = RegularExpression()
-input_file = "2_er_to_afnd_1.txt"
-ER.load(EXAMPLES_PATH / input_file) # --> ver se consigo passar na frente
-                            # > mas nao agora -.-'
-# TODO: rename this function
-#       normalize everything to english
-AFD = ER_to_AFD(ER)
 
-recipe = AFD.return_constructor_recipe()
+
+# ============= C ==============
+
+# criar AFND
+
+# tentar definir se eu determinizei ele?
+# criar is_determinized, e portanto... descobrir o que define isso?
+
+input_file = '4_simple_determination_2.txt'
+output_file = '4_simple_determination_2_result.txt'
+
+AFND = NDFiniteAutomata()
+AFND.load(EXAMPLES_PATH / input_file)
+AFD = AFND_determinizer(AFND)
+AFD.save(EXAMPLES_PATH / output_file)
+
+print('\nSeu AFND de entrada foi:\n')
+AFND.show()
+print('\nSeu AFD de saída é:\n')
+AFD.show()
+
+# ok isso me deu dor de cabeça vou fazer um mais simples
+# hmm mas na real a gente quer eh algo pra comparar...
+# eh, eu posso suar essa recognição soh pra ter certeza que eu nao quebro... o app todo?
+# sim, mas ja faça um teste basico e depois vc da um jeito de 
+
+# # def recognizes(self, word):
+# AF = FiniteAutomata()
+# AF = self.determinize()
+# AF.recognizes(word)
+
+
+# ============= A ==============
+
+# input = 'er: (a|b)*abb'
+# print(f"String computada: {input}")
+# ER = RegularExpression()
+# input_file = "2_er_to_afnd_1.txt"
+# ER.load(EXAMPLES_PATH / input_file) # --> ver se consigo passar na frente
+#                             # > mas nao agora -.-'
+# # TODO: rename this function
+# #       normalize everything to english
+# AFD = ER_to_AFD(ER)
+
+# recipe = AFD.return_constructor_recipe()
 
 # ta esse plano de testar equivalencias de automatos nao vai funcionar de jeito nenhum.
 #   voce precisaria definir equivalencia de conteudo, nao equivalencia de conteudo.

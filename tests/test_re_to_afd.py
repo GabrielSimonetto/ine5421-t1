@@ -26,6 +26,8 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     print(f"Regex computado: {input_regex}")
     ER = RegularExpression()
     input_file = "2_er_to_afnd_1.txt"
+    # pera pq eu to dando load se eu criei o regex ali emcima
+    #   hdasoihfaisodhios a ta errado memo
     ER.load(EXAMPLES_PATH / input_file)
     AFD = ER_to_AFD(ER)
 
