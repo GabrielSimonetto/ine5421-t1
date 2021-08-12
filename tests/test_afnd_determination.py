@@ -23,7 +23,31 @@ def format_tests_nicely(func):
 @format_tests_nicely
 def test_determinize_3_simple_determination():
     input_file = '3_simple_determination.txt'
-    expected_result_file = '3_simple_determination_result.txt' # TODO: remove? don't think we use it.
+    expected_result_file = '3_simple_determination_result.txt'
+
+    # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
+    AFND = NDFiniteAutomata()
+    AFND.load(EXAMPLES_PATH / input_file)
+
+    expected_AFD = FiniteAutomata()
+    expected_AFD.load(EXAMPLES_PATH / expected_result_file)
+
+    result_AFD = AFND_determinizer(AFND)
+
+    print('\nSeu AFND de entrada foi:\n')
+    AFND.show()
+    print('\nSeu AFD de saída é:\n')
+    result_AFD.show()
+
+    accepted = result_AFD == expected_AFD
+    print(f'\nO resultado foi igual ao gabarito que possuimos? R: {accepted}')
+    assert accepted
+
+
+@format_tests_nicely
+def test_determinize_4_simple_determination():
+    input_file = '4_simple_determination_2.txt'
+    expected_result_file = '4_simple_determination_2_result.txt'
 
     # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
     AFND = NDFiniteAutomata()

@@ -41,7 +41,7 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     # Test b) - should not accept 
     word_input = 'ab'   
     accepted  = AFD.recognizes(word_input)
-    print(f"input b) na AFD gerada, deve ser aceito: {word_input}")
+    print(f"input b) na AFD gerada, não deve ser aceito: {word_input}")
     print(f"Resultado: {accepted}")
     assert not accepted
 
