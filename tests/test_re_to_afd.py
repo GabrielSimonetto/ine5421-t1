@@ -1,4 +1,3 @@
-import formais.automata as automata
 import functools
 
 from formais.regular_expressions import RegularExpression
@@ -24,8 +23,6 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     print(f"Regex computado: {input_regex}")
     ER = RegularExpression()
     input_file = "2_er_to_afnd_1.txt"
-    # pera pq eu to dando load se eu criei o regex ali emcima
-    #   hdasoihfaisodhios a ta errado memo
     ER.load(EXAMPLES_PATH / input_file)
     AFD = ER_to_AFD(ER)
 
@@ -42,16 +39,3 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     print(f"input b) na AFD gerada, não deve ser aceito: {word_input}")
     print(f"Resultado: {accepted}")
     assert not accepted
-
-# ideias teste:
-# colocar os 2 pra     reconhecer uma entrada   valida
-# colocar os 2 pra NAO reconhecer uma entrada invalida
-
-# @format_tests_nicely
-# def test_1_ends_in_aa_fails():
-#     print("Teste: test_1_ends_in_aa_fails")
-#     input = 'abba'
-#     print(f"String computada: {input}")
-#     accepted = automata.compute(input)
-#     print(f"Resultado: {accepted}")
-#     assert not accepted
