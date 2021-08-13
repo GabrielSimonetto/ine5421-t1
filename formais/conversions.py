@@ -2,6 +2,7 @@ from formais.finite_automata import *
 from formais.regular_expressions import *
 
 from collections import defaultdict
+import copy
 
 def GR_to_AFND(GR):
     AFND = NDFiniteAutomata()
