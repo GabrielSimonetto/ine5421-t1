@@ -18,6 +18,15 @@ class FiniteAutomata:
             'alphabet':  self.alphabet,
         }
 
+    def __eq__(self, other):
+        return all([
+            self.trans     == other.trans,
+            self.initial   == other.initial,
+            self.accepting == other.accepting,
+            self.states    == other.states,
+            self.alphabet  == other.alphabet,
+        ])
+
     def addTrans(self, from_, by, to):
         if from_ not in self.trans:
             self.trans[from_] = {}
