@@ -1,5 +1,3 @@
-from formais.automata import Automata
-
 from formais.regular_expressions import RegularExpression
 from formais.conversions import ER_to_AFD, AFND_determinizer
 
@@ -21,11 +19,6 @@ def create_determinization_result():
     print('\nSeu AFD de saída é:\n')
     AFD.show()
 
-
-# Q: a - A, B, C; b - C;
-# def parse_automata(name, type_input):
-#     f = open("./input/" + name + "." + type_input + ".txt", "r")
-#     _automata = automata.Automata(name)
 
 def parse_automata(name):
     f = open("./examples/" + name, "r")

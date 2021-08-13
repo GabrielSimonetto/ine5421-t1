@@ -18,15 +18,6 @@ class FiniteAutomata:
             'alphabet':  self.alphabet,
         }
 
-    def __eq__(self, other):
-        return all([
-            self.trans     == other.trans,
-            self.initial   == other.initial,
-            self.accepting == other.accepting,
-            self.states    == other.states,
-            self.alphabet  == other.alphabet,
-        ])
-
     def addTrans(self, from_, by, to):
         if from_ not in self.trans:
             self.trans[from_] = {}
@@ -46,7 +37,6 @@ class FiniteAutomata:
         for s in accepting:
             self.addAccepting(s)
 
-		# Preenche os símbolos do alfabeto
         alphabet = f1[3].replace('\n', '').split(',')
         for a in alphabet:
             self.alphabet.add(a)
@@ -57,7 +47,6 @@ class FiniteAutomata:
             by = l1[1]
             to = l1[2]
 
-			# Preenche o conjunto de estados
             self.addState(to)
             self.addState(from_)
 
@@ -68,18 +57,16 @@ class FiniteAutomata:
             if s not in self.trans:
                 self.trans[s] = {}
 
-# Verifica se o autômato reconhece a palavra
     def recognizes(self, word):
         current = self.initial
-        for c in word:   # Por cada letra da palavra
-            if c not in self.trans[current]:  # Se eu não tenho transição pela letra, retorna falso
+        for c in word:  
+            if c not in self.trans[current]:
                 return False
             else:
-                current = self.trans[current][c]  # Se não, vou para o estado em que a letra leva
+                current = self.trans[current][c]
 
         return current in self.accepting
 
-    # Salva o objeto em um arquivo json local
     def save(self, filename):
         with open(filename, "w") as writer:
             writer.write(str(len(self.states))+"\n")
@@ -94,7 +81,7 @@ class FiniteAutomata:
     def show(self):
         table = PrettyTable()
 
-        alphabet = sorted(list(self.alphabet)) # Como é set, preciso colocar em ordem
+        alphabet = sorted(list(self.alphabet))
         states = sorted(list(self.states))
         states1 = deepcopy(states)
 
@@ -106,7 +93,7 @@ class FiniteAutomata:
 
         table.add_column("Estados", states1)
 
-        for a in alphabet: # Então aqui eu vou fazer de forma ordenada, começando por (a, q0), (a,q1), etc
+        for a in alphabet:
             column = []
             for s in states:
                 if s not in self.trans:
@@ -121,15 +108,15 @@ class FiniteAutomata:
 
     def union(self, other):
         result = NDFiniteAutomata()
-        startState = "q0"				# Novo estado inicial, depois fica mais claro o pq do "q" na frente
+        startState = "q0"				
         result.addState(startState)
         result.initial = startState
         result.alphabet = self.alphabet
         result.alphabet.add("&")
         id = 1
-        mapping = {}					# Mapeamento dos estados (o estado 5 do segundo automato vai ser "q7", etc)
+        mapping = {}
         for state in sorted(list(self.states)):
-            mapping[state] = "q" + str(id)		# Adiciona os estados do primeiro automato
+            mapping[state] = "q" + str(id)		
             result.addState(mapping[state])
             id += 1
         for state in sorted(list(self.states)):
@@ -137,13 +124,13 @@ class FiniteAutomata:
                 if a in self.trans[state].keys():
                     to = self.trans[state][a]
                     if isinstance(to, str):
-                        result.addTrans(mapping[state], a, mapping[to])  # Adiciona as transições
+                        result.addTrans(mapping[state], a, mapping[to])
                     else:
                         for s in to:
                             result.addTrans(mapping[state], a, mapping[s])
         for accept in self.accepting:
             result.addAccepting(mapping[accept])
-        result.addTrans(startState, "&", mapping[self.initial]) # Adiciona a transição por & para o primeiro automato
+        result.addTrans(startState, "&", mapping[self.initial])
         mapping = {}
         result.alphabet.update(other.alphabet)
         for state in sorted(list(other.states)):
@@ -161,7 +148,7 @@ class FiniteAutomata:
                             result.addTrans(mapping[state], a, mapping[s])
         for accept in other.accepting:
             result.addAccepting(mapping[accept])
-        result.addTrans(startState, "&", mapping[other.initial]) 		# Adiciona a transição por & para o segundo automato
+        result.addTrans(startState, "&", mapping[other.initial]) 
         return result
 
     def complement(self):
@@ -180,18 +167,26 @@ class FiniteAutomata:
             AF.accepting.remove(AF.initial)
 
         return AF
+    
+    def __eq__(self, other):
+        return all([
+            self.trans     == other.trans,
+            self.initial   == other.initial,
+            self.accepting == other.accepting,
+            self.states    == other.states,
+            self.alphabet  == other.alphabet,
+    ])
 
-# Classe de AF não Deterministico, filho de um Automato Finito
 class NDFiniteAutomata(FiniteAutomata):
 
-    def addTrans(self, from_, by, to):  # Cria um set de estados para cada transição por uma letra do alfabeto ou por &
+    def addTrans(self, from_, by, to):  
         if from_ not in self.trans:
             self.trans[from_] = {}
         if by not in self.trans[from_]:
             self.trans[from_][by] = set()
         self.trans[from_][by].add(to)
 
-    def eClosure(self, states):  # Retorna os estados alcancaveis por & a partir de um estado ou um conjunto de estados
+    def eClosure(self, states):
         eClosure = set()
         accept = False
         while states:
@@ -213,7 +208,6 @@ class NDFiniteAutomata(FiniteAutomata):
         for s in accepting:
             self.addAccepting(s)
 
-		# Preenche os símbolos do alfabeto
         alphabet = f1[3].replace('\n', '').split(',')
         for a in alphabet:
             self.alphabet.add(a)
@@ -230,7 +224,6 @@ class NDFiniteAutomata(FiniteAutomata):
                     self.addState(s)
                     self.addTrans(from_, by, s)
             else:
-                # Adiciona conjunto de estados
                 self.addState(to)
                 self.addState(from_)
                 self.addTrans(from_, by, to)
