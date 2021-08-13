@@ -67,6 +67,7 @@ class FiniteAutomata:
         for s in self.states:
             if s not in self.trans:
                 self.trans[s] = {}
+        return self
 
 # Verifica se o autômato reconhece a palavra
     def recognizes(self, word):

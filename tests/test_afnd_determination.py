@@ -23,12 +23,8 @@ def test_determinize_3_simple_determination():
     input_file = '3_simple_determination.txt'
     expected_result_file = '3_simple_determination_result.txt'
 
-    # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
-    AFND = NDFiniteAutomata()
-    AFND.load(EXAMPLES_PATH / input_file)
-
-    expected_AFD = FiniteAutomata()
-    expected_AFD.load(EXAMPLES_PATH / expected_result_file)
+    AFND = NDFiniteAutomata().load(EXAMPLES_PATH / input_file)
+    expected_AFD = FiniteAutomata().load(EXAMPLES_PATH / expected_result_file)
 
     result_AFD = AFND_determinizer(AFND)
 
@@ -47,12 +43,8 @@ def test_determinize_4_simple_determination():
     input_file = '4_simple_determination_2.txt'
     expected_result_file = '4_simple_determination_2_result.txt'
 
-    # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
     AFND = NDFiniteAutomata().load(EXAMPLES_PATH / input_file)
-    # AFND.load(EXAMPLES_PATH / input_file)
-
-    expected_AFD = FiniteAutomata()
-    expected_AFD.load(EXAMPLES_PATH / expected_result_file)
+    expected_AFD = FiniteAutomata().load(EXAMPLES_PATH / expected_result_file)
 
     result_AFD = AFND_determinizer(AFND)
 

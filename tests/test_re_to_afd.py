@@ -17,8 +17,6 @@ def format_tests_nicely(func):
         return result
     return wrapper_format_tests_nicely
 
-# TODO: 2x2 2 regexes, one true, one false.
-# TODO: null test acceptions?
 
 @format_tests_nicely
 def test_1_make_finite_automata_from_regex_and_recognize_language():
