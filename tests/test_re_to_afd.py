@@ -1,4 +1,3 @@
-import formais.automata as automata
 import functools
 
 from formais.regular_expressions import RegularExpression
@@ -16,9 +15,6 @@ def format_tests_nicely(func):
         print()
         return result
     return wrapper_format_tests_nicely
-
-# TODO: 2x2 2 regexes, one true, one false.
-# TODO: null test acceptions?
 
 @format_tests_nicely
 def test_1_make_finite_automata_from_regex_and_recognize_language():
@@ -39,19 +35,6 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     # Test b) - should not accept 
     word_input = 'ab'   
     accepted  = AFD.recognizes(word_input)
-    print(f"input b) na AFD gerada, deve ser aceito: {word_input}")
+    print(f"input b) na AFD gerada, não deve ser aceito: {word_input}")
     print(f"Resultado: {accepted}")
     assert not accepted
-
-# ideias teste:
-# colocar os 2 pra     reconhecer uma entrada   valida
-# colocar os 2 pra NAO reconhecer uma entrada invalida
-
-# @format_tests_nicely
-# def test_1_ends_in_aa_fails():
-#     print("Teste: test_1_ends_in_aa_fails")
-#     input = 'abba'
-#     print(f"String computada: {input}")
-#     accepted = automata.compute(input)
-#     print(f"Resultado: {accepted}")
-#     assert not accepted

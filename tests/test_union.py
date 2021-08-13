@@ -20,9 +20,8 @@ def format_tests_nicely(func):
 def test_union():
     file_1 = '1_ends_in_aa.txt'
     file_2 = '4_odd_b.txt'
-    expected_result_file = '1_union_4_result.txt' # TODO: remove? don't think we use it.
+    expected_result_file = '1_union_4_result.txt'
 
-    # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
     automata_1 = FiniteAutomata()
     automata_2 = FiniteAutomata()
     automata_1.load(EXAMPLES_PATH / file_1)
