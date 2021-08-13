@@ -56,6 +56,7 @@ class FiniteAutomata:
         for s in self.states:
             if s not in self.trans:
                 self.trans[s] = {}
+        return self
 
     def recognizes(self, word):
         current = self.initial
@@ -79,32 +80,23 @@ class FiniteAutomata:
                     writer.write("{},{},{}".format(t, b, self.trans[t][b]+"\n"))
 
     def show(self):
-        table = PrettyTable()
+        for state in self.trans:
+            aux1 = ""
+            if state in self.accepting:
+                aux1 += "*"    
+            if state == self.initial:
+                aux1 += "->"
+            for symbol in self.trans[state]:
+                aux2 = aux1 + "transição({0}; {1}) = ".format(state, symbol)
+                state_list = self.trans[state][symbol]
 
-        alphabet = sorted(list(self.alphabet))
-        states = sorted(list(self.states))
-        states1 = deepcopy(states)
-
-        for i, s in enumerate(states):
-            if s in self.accepting:
-                states1[i] = "*"+states1[i]
-            if s == self.initial:
-                states1[i] = "->"+states1[i]
-
-        table.add_column("Estados", states1)
-
-        for a in alphabet:
-            column = []
-            for s in states:
-                if s not in self.trans:
-                    self.trans[s] = {}
-                if a not in self.trans[s]:
-                    column.append("Ø")
+                formatted_state_list = ", ".join(state_list)
+                if len(state_list) == 0:
+                    continue
                 else:
-                    column.append(self.trans[s][a])
-            table.add_column(a, column)
+                    finalprint = aux2 + formatted_state_list
 
-        print(table)
+                print(finalprint)
 
     def union(self, other):
         result = NDFiniteAutomata()
@@ -228,11 +220,13 @@ class NDFiniteAutomata(FiniteAutomata):
                 self.addState(from_)
                 self.addTrans(from_, by, to)
 
+
         for s in self.states:
             if s not in self.trans:
                 self.trans[s] = {}
 
         self.initial = initial
+        return self
 
     def save(self, filename):
         with open(filename, "w") as writer:

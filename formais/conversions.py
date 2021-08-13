@@ -1,6 +1,8 @@
 from formais.finite_automata import *
 from formais.regular_expressions import *
+
 from collections import defaultdict
+import copy
 
 def GR_to_AFND(GR):
     AFND = NDFiniteAutomata()
@@ -143,8 +145,10 @@ def getState(l):
     else:
         return list(l)[0]
 
-def AFND_determinizer(AFND):
+def AFND_determinizer(input_AFND):
     AF = FiniteAutomata()
+    AFND = copy.deepcopy(input_AFND)
+
     AF.initial = AFND.initial
     alph = AFND.alphabet
 
@@ -428,21 +432,7 @@ def ER_to_AFD(ER):
     new = construct_tree(prefixed)
     parseLeaves(new)
     first_and_lastPos(new)
-    print("Arvore Sintática:")
-    print(new.__repr__())
-    def show(symbol):
-        print(symbol.value, "First Pos:", symbol.fPos, "Last Pos:", symbol.lPos)
-        for c in symbol.children:
-            show(c)
-    print("First e Last Pos:")
-    show(new)
     followp = follow(new)
-    table = PrettyTable()
-    table.add_column("n", list(followp.keys()))
-    table.add_column("followpos", list(followp.values()))
-    print("\n")
-    print("Followpos:")
-    print(table)
     AF = createAFD(new, followp)
     print("\n")
     print("Autômato:")

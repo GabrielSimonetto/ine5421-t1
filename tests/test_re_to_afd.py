@@ -16,6 +16,7 @@ def format_tests_nicely(func):
         return result
     return wrapper_format_tests_nicely
 
+
 @format_tests_nicely
 def test_1_make_finite_automata_from_regex_and_recognize_language():
     input_regex = 'er: (a|b)*abb'
