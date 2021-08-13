@@ -213,8 +213,10 @@ def getState(l):
     else:
         return list(l)[0]
 
-def AFND_determinizer(AFND):
+def AFND_determinizer(input_AFND):
     AF = FiniteAutomata()
+    AFND = copy.deepcopy(input_AFND)
+
     AF.initial = AFND.initial
     alph = AFND.alphabet
 
