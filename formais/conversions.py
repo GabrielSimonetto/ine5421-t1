@@ -1033,31 +1033,17 @@ def createAFD(node, followp):
                 if str(x) in new:
                     AF.addAccepting(new)
     return AF
+
 # Converte ER para AFD usando árvore sintática
 def ER_to_AFD(ER):
     ER = ER.regex['er'] + "#"
-    # breakpoint()
     regex = format_er(ER)
     rpn_regex = convertRPN(regex)
     prefixed = post_to_pre(rpn_regex)
     new = construct_tree(prefixed)
     parseLeaves(new)
     first_and_lastPos(new)
-    print("Arvore Sintática:")
-    print(new.__repr__())
-    def show(symbol):
-        print(symbol.value, "First Pos:", symbol.fPos, "Last Pos:", symbol.lPos)
-        for c in symbol.children:
-            show(c)
-    print("First e Last Pos:")
-    show(new)
     followp = follow(new)
-    table = PrettyTable()
-    table.add_column("n", list(followp.keys()))
-    table.add_column("followpos", list(followp.values()))
-    print("\n")
-    print("Followpos:")
-    print(table)
     AF = createAFD(new, followp)
     print("\n")
     print("Autômato:")
