@@ -6,8 +6,6 @@ from formais.finite_automata import FiniteAutomata, NDFiniteAutomata
 from formais import EXAMPLES_PATH
 
 
-# TODO: centralize this on a conftest.py
-# TODO: hm this could receive the input args aswell...
 def format_tests_nicely(func):
     @functools.wraps(func)
     def wrapper_format_tests_nicely(*args, **kwargs):
@@ -50,8 +48,8 @@ def test_determinize_4_simple_determination():
     expected_result_file = '4_simple_determination_2_result.txt'
 
     # TODO: eu ṕoderia ter um utils que constroi esse treco de uma vez.
-    AFND = NDFiniteAutomata()
-    AFND.load(EXAMPLES_PATH / input_file)
+    AFND = NDFiniteAutomata().load(EXAMPLES_PATH / input_file)
+    # AFND.load(EXAMPLES_PATH / input_file)
 
     expected_AFD = FiniteAutomata()
     expected_AFD.load(EXAMPLES_PATH / expected_result_file)

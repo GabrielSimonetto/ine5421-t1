@@ -226,11 +226,13 @@ class NDFiniteAutomata(FiniteAutomata):
                 self.addState(from_)
                 self.addTrans(from_, by, to)
 
+
         for s in self.states:
             if s not in self.trans:
                 self.trans[s] = {}
 
         self.initial = initial
+        return self
 
     def save(self, filename):
         with open(filename, "w") as writer:

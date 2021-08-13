@@ -4,7 +4,6 @@
 from formais.finite_automata import *
 from formais.regular_expressions import *
 
-# TODO: try to remove pretty stuff (we can reinsert them later?)
 from collections import defaultdict
 import copy
 from prettytable import PrettyTable
