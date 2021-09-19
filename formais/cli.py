@@ -13,6 +13,7 @@ class CLI:
               'determinization - Determinização de AFND\n',
               'minimization - Minimização de AFD\n',
               'er_to_afd - Conversão de ER para AFD\n',
+              'recognition - Verifica se um AF reconhece certa palavra'
               'help - Ajuda (este menu)'
         )
 
@@ -24,9 +25,9 @@ class CLI:
             command = input('Insira um comando: ')
 
             if command == 'union':
-                input_file_1 = 'Arquivo contendo o primeiro AFD: '
-                input_file_2 = 'Arquivo contendo o segundo AFD: '
-                output_file = 'Nomeie o arquivo de saída: '
+                input_file_1 = input('Arquivo contendo o primeiro AFD: ')
+                input_file_2 = input('Arquivo contendo o segundo AFD: ')
+                output_file = input('Nomeie o arquivo de saída: ')
 
                 AFD_1 = FiniteAutomata()
 				AFD_1.load(path + input_file_1)
@@ -44,9 +45,9 @@ class CLI:
 
 
             elif command == 'intersection':
-                input_file_1 = 'Arquivo contendo o primeiro AFD: '
-                input_file_2 = 'Arquivo contendo o segundo AFD: '
-                output_file = 'Nomeie o arquivo de saída: '
+                input_file_1 = input('Arquivo contendo o primeiro AFD: ')
+                input_file_2 = input('Arquivo contendo o segundo AFD: ')
+                output_file = input('Nomeie o arquivo de saída: ')
 
                 AFD_1 = FiniteAutomata()
 				AFD_1.load(path + input_file_1)
@@ -63,8 +64,8 @@ class CLI:
                 AFD_union.show()
 
             elif command == 'determinization':
-                input_file = 'Arquivo contendo um AFND: '
-                output_file = 'Nomeie o arquivo de saída: '
+                input_file = input('Arquivo contendo um AFND: ')
+                output_file = input('Nomeie o arquivo de saída: ')
 
                 AFND = NDFiniteAutomata()
                 AFND.load(path + input_file)
@@ -76,8 +77,8 @@ class CLI:
                 AFD.show()
 
             elif command == 'minimization':
-                input_file == 'Arquivo contendo um AFD: '
-                output_file == 'Nomeie o arquivo de saída: '
+                input_file == input('Arquivo contendo um AFD: ')
+                output_file == input('Nomeie o arquivo de saída: ')
 
                 AFD = FiniteAutomata()
                 AFD.load(path + input_file)
@@ -90,8 +91,8 @@ class CLI:
                 AFD_minimized.show()
 
             elif command == 'er_to_afd':
-                input_file == 'Arquivo contendo uma ER: '
-                output_file == 'Nomeie o arquivo de saída: '
+                input_file == input('Arquivo contendo uma ER: ')
+                output_file == input('Nomeie o arquivo de saída: ')
 
                 ER = RegularExpression()
                 ER.load(path + input_file)
@@ -102,6 +103,21 @@ class CLI:
                 ER.show()
                 print('\nAFD equivalente:\n')
                 AFD.show()
+
+            elif command == 'recognition':
+                input_file == input('Arquivo contendo um AF')
+                word == input('Palavra a ser reconhecida: ')
+
+                AF = FiniteAutomata()
+                AF.load(path + input_file)
+                recognizes = AF.recognizes(word)
+
+                print('\nAutômato:\n')
+                AF.show()
+                if recognizes:
+                    print('\nO autômato reconhece a palavra ' + word + '.\n')
+                else:
+                    print('\nO autômato não reconhece a palavra ' + word + '.\n')
 
             elif command == 'help':
                 self.help()
