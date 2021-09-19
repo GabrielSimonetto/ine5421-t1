@@ -13,7 +13,7 @@ class CLI:
               'determinization - Determinização de AFND\n',
               'minimization - Minimização de AFD\n',
               'er_to_afd - Conversão de ER para AFD\n',
-              'recognition - Verifica se um AF reconhece certa palavra'
+              'recognition - Verifica se um AF reconhece certa palavra',
               'help - Ajuda (este menu)'
         )
 
