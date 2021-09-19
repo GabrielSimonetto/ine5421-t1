@@ -1,5 +1,5 @@
 from formais.regular_expressions import RegularExpression
-from formais.conversions import ER_to_AFD, AFND_determinizer
+from formais.conversions import ER_to_AFD, determinize
 
 from formais.finite_automata import NDFiniteAutomata
 
@@ -11,7 +11,7 @@ def create_determinization_result():
 
     AFND = NDFiniteAutomata()
     AFND.load(EXAMPLES_PATH / input_file)
-    AFD = AFND_determinizer(AFND)
+    AFD = determinize(AFND)
     AFD.save(EXAMPLES_PATH / output_file)
 
     print('\nSeu AFND de entrada foi:\n')
@@ -34,7 +34,7 @@ def parse_automata(name):
         if state[0] == '*':
             end_states.append(state[1:])
             state = state[1:]
-        
+
         transitions = parts[1].split(';')
         transition_list = []
         for transition in transitions:
@@ -42,15 +42,15 @@ def parse_automata(name):
             if len(parts) > 1:
                 state_list = parts[1].split(',')
                 transition_list.append((parts[0], state_list))
-        
+
         if first:
             initial = state
             first = False
         _automata.add_state(state, transition_list)
-    
+
     for state in end_states:
         _automata.set_end_state(state)
-    
+
     _automata.set_start(initial)
     return _automata
 

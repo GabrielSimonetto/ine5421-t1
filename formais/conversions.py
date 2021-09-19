@@ -37,7 +37,7 @@ def GR_to_AFND(GR):
     return AFND
 
 
-def AFD_minimizer(AFD):
+def minimize(AFD):
 
     unreachable = set()
     reachable_all = set(AFD.initial)
@@ -145,7 +145,7 @@ def getState(l):
     else:
         return list(l)[0]
 
-def AFND_determinizer(input_AFND):
+def determinize(input_AFND):
     AF = FiniteAutomata()
     AFND = copy.deepcopy(input_AFND)
 
@@ -157,7 +157,7 @@ def AFND_determinizer(input_AFND):
     else:
         AF.alphabet = alph
     AF.alphabet = AFND.alphabet
-    tState = [] 
+    tState = []
     AF.initial = AFND.initial
 
     for state in AFND.states:

@@ -41,4 +41,3 @@ class Node():
 		out = self.value + '\n'
 		out += indent('\n'.join(repr(c) for c in self.children), ' ' * 4)
 		return out
-
