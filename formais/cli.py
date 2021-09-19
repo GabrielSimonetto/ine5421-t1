@@ -2,7 +2,7 @@ import finite_automata
 import regular_expressions
 import conversions
 
-class CLI():
+class CLI:
     def __init__(self):
         pass
 
