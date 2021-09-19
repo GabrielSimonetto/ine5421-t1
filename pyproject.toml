@@ -8,6 +8,7 @@ authors = ["Gabriel Simonetto <gabrielfranksimonetto@gmail.com>"]
 python = "^3.8"
 pytest = "^6.2.4"
 prettytable = "^2.1.0"
+ply = "^3.11"
 
 [tool.poetry.dev-dependencies]
 
