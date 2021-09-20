@@ -3,8 +3,8 @@ from itertools import combinations
 from typing import List, Union, Set, Tuple, Dict
 from sys import exit
 
-from data_structures import Cfg, Production, SyntaticAnalyserMatrix
-from cfg_parser import CfgParser
+from formais.data_structures import Cfg, Production, SyntaticAnalyserMatrix
+from formais.cfg_parser import CfgParser
 
 
 def union(first: Set[str], begins: Set[str]):

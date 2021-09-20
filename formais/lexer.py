@@ -1,4 +1,4 @@
-import lex
+import ply.lex as lex
 
 def convert_ts_result(tokens):
     return [(token.value, token.type) for token in tokens]
