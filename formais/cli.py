@@ -1,10 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from sys import exit
 
-from formais.finite_automata import FiniteAutomata, NDFiniteAutomata
-from formais.conversions import determinize, minimize, ER_to_AFD
-from formais.regular_expressions import RegularExpression
+from finite_automata import FiniteAutomata, NDFiniteAutomata
+from conversions import determinize, minimize, ER_to_AFD
+from regular_expressions import RegularExpression
+from cfg_processor import *
+from cfg_parser import *
+from lexer import create_ts_result
 
-from formais import EXAMPLES_PATH, OUTPUT_PATH
+from __init__ import EXAMPLES_PATH, OUTPUT_PATH
 
 class CLI:
     def __init__(self):
@@ -18,33 +24,34 @@ class CLI:
               'minimization    - Minimização de AFD\n',
               'er_to_afd       - Conversão de ER para AFD\n',
               'recognition     - Verifica se um AF reconhece certa palavra\n',
-              'help            - Ajuda (este menu)\n',
-              'exit            - Sai do programa \n'
+              'analysis_table  - Mostra a tabela de análise de uma gramática LL(1)\n',
+              'symbol_table    - Mostra a tabela de símbolos de uma linguagem\n',
+              'help            - Ajuda (mostra este menu)\n',
+              'exit            - Sai do programa'
         )
 
     def exit(self):
-        print("Até mais!")
+        print('\nAté mais!')
         exit(0)
 
     def start(self):
-        # path = './examples/'
+        self.help()
 
         while(True):
-            self.help()
-            command = input('Insira um comando: ')
+            command = input('\nInsira um comando: ')
 
             if command == 'union':
                 default_file_1 = '1_ends_in_aa.txt'
                 default_file_2 = '4_odd_b.txt'
-                default_save_file = 'testing_cli_union.txt'
+                default_output_file = 'testing_cli_union.txt'
 
                 aux_input_file_1 = input(f'Arquivo contendo o primeiro AFD: (default: {default_file_1})')
-                aux_input_file_2 = input(f'Arquivo contendo o segundo AFD: (default: {default_file_1})')
-                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_save_file})')
+                aux_input_file_2 = input(f'Arquivo contendo o segundo AFD: (default: {default_file_2})')
+                aux_output_file = input(f'Nomeie o arquivo de saída: (default: {default_output_file})')
 
                 input_file_1 = default_file_1 if aux_input_file_1 == '' else aux_input_file_1
                 input_file_2 = default_file_2 if aux_input_file_2 == '' else aux_input_file_2
-                output_file =  default_save_file if aux_output_file  == '' else aux_output_file
+                output_file =  default_output_file if aux_output_file  == '' else aux_output_file
 
                 AFD_1 = FiniteAutomata()
                 AFD_1.load(EXAMPLES_PATH / input_file_1)
@@ -64,15 +71,15 @@ class CLI:
             elif command == 'intersection':
                 default_file_1 = '1_ends_in_aa.txt'
                 default_file_2 = '4_odd_b.txt'
-                default_save_file = 'testing_cli_intersection.txt'
+                default_output_file = 'testing_cli_intersection.txt'
 
                 aux_input_file_1 = input(f'Arquivo contendo o primeiro AFD: (default: {default_file_1})')
-                aux_input_file_2 = input(f'Arquivo contendo o segundo AFD: (default: {default_file_1})')
-                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_save_file})')
+                aux_input_file_2 = input(f'Arquivo contendo o segundo AFD: (default: {default_file_2})')
+                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_output_file})')
 
                 input_file_1 = default_file_1 if aux_input_file_1 == '' else aux_input_file_1
                 input_file_2 = default_file_2 if aux_input_file_2 == '' else aux_input_file_2
-                output_file =  default_save_file if aux_output_file  == '' else aux_output_file
+                output_file =  default_output_file if aux_output_file  == '' else aux_output_file
 
                 AFD_1 = FiniteAutomata()
                 AFD_1.load(EXAMPLES_PATH / input_file_1)
@@ -90,13 +97,13 @@ class CLI:
 
             elif command == 'determinization':
                 default_input_file = '4_simple_determination_2.txt'
-                default_save_file = 'testing_cli_determinization.txt'
+                default_output_file = 'testing_cli_determinization.txt'
 
                 aux_input_file_1 = input(f'Arquivo contendo um AFND: (default: {default_input_file})')
-                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_save_file})')
+                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_output_file})')
 
                 input_file = default_input_file if aux_input_file_1 == '' else aux_input_file_1
-                output_file =  default_save_file if aux_output_file  == '' else aux_output_file
+                output_file =  default_output_file if aux_output_file  == '' else aux_output_file
 
                 AFND = NDFiniteAutomata()
                 AFND.load(EXAMPLES_PATH / input_file)
@@ -110,13 +117,13 @@ class CLI:
 
             elif command == 'minimization':
                 default_input_file = '1_ends_in_aa.txt'
-                default_save_file = 'testing_cli_minimization.txt'
+                default_output_file = 'testing_cli_minimization.txt'
 
                 aux_input_file = input(f'Arquivo contendo um AFD: (default: {default_input_file})')
-                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_save_file})')
+                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_output_file})')
 
                 input_file = default_input_file if aux_input_file == '' else aux_input_file
-                output_file =  default_save_file if aux_output_file  == '' else aux_output_file
+                output_file =  default_output_file if aux_output_file  == '' else aux_output_file
 
                 AFD = FiniteAutomata()
                 AFD.load(EXAMPLES_PATH / input_file)
@@ -129,14 +136,14 @@ class CLI:
                 AFD_minimized.show()
 
             elif command == 'er_to_afd':
-                default_input_file = "2_er_to_afd_1.txt"
-                default_save_file = 'testing_cli_er_to_afd.txt'
+                default_input_file = '2_er_to_afd_1.txt'
+                default_output_file = 'testing_cli_er_to_afd.txt'
 
-                aux_input_file = input(f'Arquivo contendo uma ER:  (default: {default_input_file})')
-                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_save_file})')
+                aux_input_file = input(f'Arquivo contendo uma ER: (default: {default_input_file})')
+                aux_output_file = input(f'Nomeie o arquivo de saída: (default {default_output_file})')
 
                 input_file = default_input_file if aux_input_file == '' else aux_input_file
-                output_file =  default_save_file if aux_output_file  == '' else aux_output_file
+                output_file =  default_output_file if aux_output_file  == '' else aux_output_file
 
                 ER = RegularExpression()
                 ER.load(EXAMPLES_PATH / input_file)
@@ -149,8 +156,8 @@ class CLI:
                 AFD.show()
 
             elif command == 'recognition':
-                default_input_file = "2_er_to_afd_1.txt"
-                aux_input_file = input(f'Arquivo contendo um AF:  (default: {default_input_file})')
+                default_input_file = '1_ends_in_aa.txt'
+                aux_input_file = input(f'Arquivo contendo um AF: (default: {default_input_file})')
                 input_file = default_input_file if aux_input_file == '' else aux_input_file
 
                 word = input('Palavra a ser reconhecida: ')
@@ -162,9 +169,33 @@ class CLI:
                 print('\nAutômato:\n')
                 AF.show()
                 if recognizes:
-                    print('\nO autômato reconhece a palavra ' + word + '.\n')
+                    print('\nO autômato reconhece a palavra ' + word + '.')
                 else:
-                    print('\nO autômato não reconhece a palavra ' + word + '.\n')
+                    print('\nO autômato não reconhece a palavra ' + word + '.')
+
+            elif command == 'analysis_table':
+                default_input_file = '6_not_ll1_example.txt' # TODO: Fix matrix printing then set default file as 6_is_ll1_example.txt
+                aux_input_file = input(f'Arquivo contendo uma GLC: (default: {default_input_file})')
+                input_file = default_input_file if aux_input_file == '' else aux_input_file
+
+                cfg = cfg_proc_reader(EXAMPLES_PATH / input_file)
+                if cfg.is_ll1():
+                    print('\nTabela de análise gerada:\n')
+                    print(cfg.generate_matrix())
+                else:
+                    print('\nNão foi possível gerar a tabela, pois a gramática não é LL(1)')
+
+            elif command == 'symbol_table':
+                default_input_file = 'simple_lexer_input.txt'
+                aux_input_file = input(f'Arquivo contendo o código fonte a ser analisado: (default: {default_input_file})\n')
+                input_file = default_input_file if aux_input_file == '' else aux_input_file
+
+                input_text = open(EXAMPLES_PATH / input_file)
+                for line in input_text:
+                    print(line)
+                symbol_table = create_ts_result(EXAMPLES_PATH / input_file)
+                for value, type in symbol_table:
+                    print(f'{value}: {type}')
 
             elif command == 'help':
                 self.help()
@@ -173,4 +204,4 @@ class CLI:
                 self.exit()
 
             else:
-                print('Comando inexistente.')
+                print('Comando inexistente. Para ver os comandos disponíveis, digite help.')

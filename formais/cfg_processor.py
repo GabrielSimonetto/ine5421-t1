@@ -1,11 +1,10 @@
 """Check if grammar is LL(1)"""
 from itertools import combinations
-from dataclasses import dataclass
 from typing import List, Union, Set, Tuple, Dict
 from sys import exit
 
-from formais.data_structures import Cfg, Production, SyntaticAnalyserMatrix
-from formais.cfg_parser import CfgParser
+from data_structures import Cfg, Production, SyntaticAnalyserMatrix
+from cfg_parser import CfgParser
 
 
 def union(first: Set[str], begins: Set[str]):
@@ -54,7 +53,7 @@ class CfgProcessor:
                     first[prod.head] |= {self.__empty_symbol}
                     updated |= union(epsilon, {prod.head})
 
-                # Calcualte FOLLOW
+                # Calculate FOLLOW
                 aux = follow[prod.head]
                 for symbol in reversed(prod.body):
                     if symbol in follow:

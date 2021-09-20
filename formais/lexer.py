@@ -1,13 +1,6 @@
-"""Lexer for CC-2020-2 language"""
-
-import ply.lex as lex
+import lex
 
 def convert_ts_result(tokens):
-    """tokens: list[ply.lex.LexToken]
-    
-    Returns: List of (Lexeme_Value, Token_Type) Tuples.
-    """
-
     return [(token.value, token.type) for token in tokens]
 
 def create_ts_result(filepath):
@@ -15,7 +8,7 @@ def create_ts_result(filepath):
         source_code = f.read()
 
     tokens = []
-    lexer = CC20202Lexer()
+    lexer = Lexer()
     lexer.build()
     lexer.input(source_code)
     while True:
@@ -33,7 +26,7 @@ def create_ts_result(filepath):
     return convert_ts_result(tokens)
 
 
-class CC20202Lexer:
+class Lexer:
     reserved_keywords = {
         'def': 'DEF',
         'if': 'IF',
@@ -53,7 +46,7 @@ class CC20202Lexer:
         # Reserved keywords
         *reserved_keywords.values(),
 
-        # Brakets, parentesis and square brackets
+        # Brackets, parentesis and square brackets
         'LBRACKETS',
         'RBRACKETS',
         'LPAREN',
@@ -92,16 +85,6 @@ class CC20202Lexer:
         'INT_CONSTANT',
         'STRING_CONSTANT',
     ]
-
-    # Disclaimer:
-    # The PLY package uses the size of the regex expressions to define which
-    # will be applyed first, applying the longer first. If the expression is
-    # defined using a function, it uses the order which they are defined in
-    # source file.
-    # Example: if t_INT_CONSTANT comes before t_FLOAT_CONSTANT, it
-    # matches all that comes before the dot, and reconize if as integer.
-    # Then, it read the dot alone and do not match any expression, and causes
-    # an error
 
     t_LBRACKETS = r'{'
     t_RBRACKETS = r'}'

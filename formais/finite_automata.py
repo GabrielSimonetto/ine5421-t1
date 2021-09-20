@@ -1,7 +1,3 @@
-from prettytable import PrettyTable
-from copy import deepcopy
-
-
 class FiniteAutomata:
     def __init__(self, trans=None, initial="0", accepting=None, states=None, alphabet=None):
         self.trans = {}
