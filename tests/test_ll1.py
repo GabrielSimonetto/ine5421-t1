@@ -35,3 +35,12 @@ def test_asserts_a_LL1_cfg_is_LL1():
     print(f"\nEssa CFG que não é LL1 é identificada como LL1? R: {is_ll1}")
     assert not is_ll1
 
+
+@format_tests_nicely
+def test_asserts_simple_lexer_is_LL1():
+    filepath = EXAMPLES_PATH / '7_describing_simple_lexer_as_cfg.txt'
+    cfg = cfg_proc_reader(filepath)
+
+    is_ll1 = cfg.is_ll1()
+    print(f"\nEssa CFG que é LL1 é identificada como LL1? R: {is_ll1}")
+    assert is_ll1
