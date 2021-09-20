@@ -4,7 +4,7 @@ from formais.lexer import create_ts_result
 
 from formais import EXAMPLES_PATH
 
-expected_ERASEME_lexer_input_result = [
+expected_complex_lexer_input_result = [
     ("{", "LBRACKETS"),
     ("{", "LBRACKETS"),
     ("float", "FLOAT_KEYWORD"),
@@ -191,10 +191,10 @@ def format_tests_nicely(func):
 
 
 @format_tests_nicely
-def test_ERASEME_lexer_input_test():
-    filepath = EXAMPLES_PATH / "ERASEME_lexer_input.txt"
+def test_complex_lexer_input_test():
+    filepath = EXAMPLES_PATH / "complex_lexer_input.txt"
     result = create_ts_result(filepath)
 
-    accepted = result == expected_ERASEME_lexer_input_result
+    accepted = result == expected_complex_lexer_input_result
     print(f"\nO resultado foi igual ao gabarito que possuimos? R: {accepted}")
     assert accepted
