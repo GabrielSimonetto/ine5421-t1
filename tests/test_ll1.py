@@ -27,7 +27,7 @@ def test_asserts_a_LL1_cfg_is_LL1():
 
 
 @format_tests_nicely
-def test_asserts_a_LL1_cfg_is_LL1():
+def test_asserts_a_not_LL1_cfg_is_not_LL1():
     filepath = EXAMPLES_PATH / '6_not_ll1_example.txt'
     cfg = cfg_proc_reader(filepath)
 
