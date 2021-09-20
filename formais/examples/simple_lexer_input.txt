@@ -1,7 +1,7 @@
 def myFunc
-  int i
-  i = 4
+  int i;
+  i = 4;
   if i > 0 {
-    print "i eh positivo"
-    print i
+    print "i eh positivo";
+    print i;
   }

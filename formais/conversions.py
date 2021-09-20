@@ -1,5 +1,5 @@
-from finite_automata import *
-from regular_expressions import *
+from formais.finite_automata import *
+from formais.regular_expressions import *
 
 from collections import defaultdict
 import copy

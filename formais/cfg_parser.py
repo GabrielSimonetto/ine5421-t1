@@ -1,6 +1,6 @@
 from typing import Set, Union, List
 
-from data_structures import Cfg, Production
+from formais.data_structures import Cfg, Production
 
 
 class CfgParser():
