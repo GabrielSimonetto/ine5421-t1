@@ -1,6 +1,6 @@
 import functools
 
-from formais.conversions import AFND_determinizer
+from formais.conversions import determinize
 from formais.finite_automata import FiniteAutomata, NDFiniteAutomata
 
 from formais import EXAMPLES_PATH
@@ -25,7 +25,7 @@ def test_determinize_3_simple_determination():
     AFND = NDFiniteAutomata().load(EXAMPLES_PATH / input_file)
     expected_AFD = FiniteAutomata().load(EXAMPLES_PATH / expected_result_file)
 
-    result_AFD = AFND_determinizer(AFND)
+    result_AFD = determinize(AFND)
 
     print('\nSeu AFND de entrada foi:\n')
     AFND.show()
@@ -45,7 +45,7 @@ def test_determinize_4_simple_determination():
     AFND = NDFiniteAutomata().load(EXAMPLES_PATH / input_file)
     expected_AFD = FiniteAutomata().load(EXAMPLES_PATH / expected_result_file)
 
-    result_AFD = AFND_determinizer(AFND)
+    result_AFD = determinize(AFND)
 
     print('\nSeu AFND de entrada foi:\n')
     AFND.show()

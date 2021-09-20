@@ -1,6 +1,7 @@
 from prettytable import PrettyTable
 from copy import deepcopy
 
+
 class FiniteAutomata:
     def __init__(self, trans=None, initial="0", accepting=None, states=None, alphabet=None):
         self.trans = {}
@@ -60,7 +61,7 @@ class FiniteAutomata:
 
     def recognizes(self, word):
         current = self.initial
-        for c in word:  
+        for c in word:
             if c not in self.trans[current]:
                 return False
             else:
@@ -83,7 +84,7 @@ class FiniteAutomata:
         for state in self.trans:
             aux1 = ""
             if state in self.accepting:
-                aux1 += "*"    
+                aux1 += "*"
             if state == self.initial:
                 aux1 += "->"
             for symbol in self.trans[state]:
@@ -100,7 +101,7 @@ class FiniteAutomata:
 
     def union(self, other):
         result = NDFiniteAutomata()
-        startState = "q0"				
+        startState = "q0"
         result.addState(startState)
         result.initial = startState
         result.alphabet = self.alphabet
@@ -108,7 +109,7 @@ class FiniteAutomata:
         id = 1
         mapping = {}
         for state in sorted(list(self.states)):
-            mapping[state] = "q" + str(id)		
+            mapping[state] = "q" + str(id)
             result.addState(mapping[state])
             id += 1
         for state in sorted(list(self.states)):
@@ -140,7 +141,7 @@ class FiniteAutomata:
                             result.addTrans(mapping[state], a, mapping[s])
         for accept in other.accepting:
             result.addAccepting(mapping[accept])
-        result.addTrans(startState, "&", mapping[other.initial]) 
+        result.addTrans(startState, "&", mapping[other.initial])
         return result
 
     def complement(self):
@@ -159,7 +160,7 @@ class FiniteAutomata:
             AF.accepting.remove(AF.initial)
 
         return AF
-    
+
     def __eq__(self, other):
         return all([
             self.trans     == other.trans,
@@ -171,7 +172,7 @@ class FiniteAutomata:
 
 class NDFiniteAutomata(FiniteAutomata):
 
-    def addTrans(self, from_, by, to):  
+    def addTrans(self, from_, by, to):
         if from_ not in self.trans:
             self.trans[from_] = {}
         if by not in self.trans[from_]:
