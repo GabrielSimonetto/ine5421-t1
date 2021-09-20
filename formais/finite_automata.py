@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 from copy import deepcopy
-from conversions import determinize
+
 
 class FiniteAutomata:
     def __init__(self, trans=None, initial="0", accepting=None, states=None, alphabet=None):
@@ -243,5 +243,5 @@ class NDFiniteAutomata(FiniteAutomata):
 
     def recognizes(self, word):
         AF = FiniteAutomata()
-        AF = determinize(self)
+        AF = self.determinize()
         return AF.recognizes(word)

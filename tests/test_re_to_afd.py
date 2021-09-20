@@ -22,7 +22,7 @@ def test_1_make_finite_automata_from_regex_and_recognize_language():
     input_regex = 'er: (a|b)*abb'
     print(f"Regex computado: {input_regex}")
     ER = RegularExpression()
-    input_file = "2_er_to_afnd_1.txt"
+    input_file = "2_er_to_afd_1.txt"
     ER.load(EXAMPLES_PATH / input_file)
     AFD = ER_to_AFD(ER)
 
