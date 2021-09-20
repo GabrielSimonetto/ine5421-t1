@@ -1,6 +1,3 @@
-# from finite_automata import *
-# from regular_expressions import *
-# from conversions import *
 from sys import exit
 
 from formais.finite_automata import FiniteAutomata, NDFiniteAutomata
