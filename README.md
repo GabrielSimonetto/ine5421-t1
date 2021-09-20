@@ -1,7 +1,5 @@
 # ine5421-t1
 
-Nossa entrega numero 1 nao possui uma CLI, e demonstra os algoritmos que foram criados atraves da bateria de testes.
-
 ## Entregas
 
 - [x] Conversão de Expressão Regular para Autômato Finito Determinístico (livro do
@@ -55,8 +53,13 @@ sudo apt-get install python3-distutils
 sudo apt-get install python3-apt
 ```
 
+## Rodando o projeto.
 
-### Rodar os testes
+```
+make tests
+```
+
+## Rodar os testes
 
 Os testes por padrão recebem uma flag que permitem os prints internos da funções, de modo a mostrar as operações internas.
 
