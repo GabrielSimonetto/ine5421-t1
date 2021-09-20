@@ -1,32 +1,5 @@
 # ine5421-t1
 
-## Entregas
-
-- [x] Conversão de Expressão Regular para Autômato Finito Determinístico (livro do
-Aho).
-- [x] União de Autômatos via Epsilon-transição
-- [x] Determinização de Autômatos
-- [ ] Construção da TS (incluir palavras reservadas e outras informações pertinentes)</br>
-    R: TS nao foi feita
-
-- [ ] A interface de projeto deve permitir a inclusão de expressões regulares para todos
-os padrões de tokens;</br>
-    R: TS nao foi feita
-
-- [x] Para cada ER deve ser gerado o AFD corresponde
-
-- [x] Os AFD devem ser unidos
-
-- [ ] O AFND resultante deve ser determinizado gerando a tabela de análise léxica</br>
-    R: TS nao foi feita
-
-- [ ] A interface de execução deve permitir a entrada de um texto fonte</br>
-    R: TS nao foi feita
-
-- [ ] O texto fonte será analisado e deve gerar um arquivo de saída com todos os tokes</br>
-encontrados.
-    R: TS nao foi feita
-
 ## Instalação
 
 ### Instalando o Poetry
@@ -56,7 +29,7 @@ sudo apt-get install python3-apt
 ## Rodando o projeto.
 
 ```
-make tests
+make run
 ```
 
 ## Rodar os testes
