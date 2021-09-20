@@ -18,6 +18,8 @@ class CLI:
               'minimization    - Minimização de AFD\n',
               'er_to_afd       - Conversão de ER para AFD\n',
               'recognition     - Verifica se um AF reconhece certa palavra\n',
+              'analysis_table  - Mostra a tabela de análise de uma gramática LL(1)',
+              'symbol_table    - Mostra a tabela de símbolos de uma linguagem',
               'help            - Ajuda (este menu)\n',
               'exit            - Sai do programa \n'
         )
@@ -165,6 +167,23 @@ class CLI:
                     print('\nO autômato reconhece a palavra ' + word + '.\n')
                 else:
                     print('\nO autômato não reconhece a palavra ' + word + '.\n')
+
+            elif command == 'analysis_table':
+                input_file = input('Arquivo contendo uma GLC: ')
+                cfg = cfg_proc_reader(path + input_file)
+
+                if cfg.is_ll1():
+                    print('\nTabela de análise gerada:\n')
+                    print(cfg.generate_matrix())
+                else:
+                    print('\nNão foi possível gerar a tabela, pois a gramática não é LL(1)')
+
+            elif command == 'symbol_table':
+                input_file == input('Arquivo contendo o código fonte a ser analisado: ')
+                symbol_table = create_ts_result(path + input_file)
+
+                for value, type in symbol_table:
+                    print(f'{value}: {type}')
 
             elif command == 'help':
                 self.help()
