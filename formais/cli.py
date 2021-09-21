@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sys import exit
+from pprint import pprint
 
 from finite_automata import FiniteAutomata, NDFiniteAutomata
 from conversions import determinize, minimize, ER_to_AFD
@@ -174,14 +175,14 @@ class CLI:
                     print('\nO autômato não reconhece a palavra ' + word + '.')
 
             elif command == 'analysis_table':
-                default_input_file = '6_not_ll1_example.txt' # TODO: Fix matrix printing then set default file as 6_is_ll1_example.txt
+                default_input_file = '6_is_ll1_example.txt'
                 aux_input_file = input(f'Arquivo contendo uma GLC: (default: {default_input_file})')
                 input_file = default_input_file if aux_input_file == '' else aux_input_file
 
                 cfg = cfg_proc_reader(EXAMPLES_PATH / input_file)
                 if cfg.is_ll1():
                     print('\nTabela de análise gerada:\n')
-                    print(cfg.generate_matrix())
+                    pprint(cfg.generate_matrix().get_matrix())
                 else:
                     print('\nNão foi possível gerar a tabela, pois a gramática não é LL(1)')
 
