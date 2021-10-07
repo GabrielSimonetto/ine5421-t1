@@ -1,6 +1,6 @@
 .PHONY: tests
 
-install:
+installAAAA:
 	poetry install
 
 tests:
